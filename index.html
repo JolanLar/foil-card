@@ -38,8 +38,45 @@
                 ">
                     <img src="/img/160_hires.png"
                          alt="Front design of the Pikachu Pokemon Card, with the stats and info around the edge"
-                         loading="lazy"
-                         width="660" height="921">
+                         loading="lazy">
+                    <div class="card__shine"></div>
+                    <div class="card__glare"></div>
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="card lightning / interactive masked active" data-number="160" data-set="swsh12pt5" data-subtypes="basic"
+         data-supertype="pokémon" data-rarity="rare secret" data-trainer-gallery="false" style="
+    --pointer-x: 50%;
+    --pointer-y: 50%;
+    --pointer-from-center: 0;
+    --pointer-from-top: 0.5;
+    --pointer-from-left: 0.5;
+    --card-opacity: 0;
+    --rotate-x: 0deg;
+    --rotate-y: 0deg;
+    --background-x: 50%;
+    --background-y: 50%;
+    --card-scale: 1;
+    --translate-x: 0px;
+    --translate-y: 0px;
+	">
+        <div class="card__translater">
+            <button class="card__rotator" aria-label="Expand the Pokemon Card; Pikachu." tabindex="0">
+                <img class="card__back" src="/img/tcg-card-back-2x.jpg"
+                     alt="The back of a Pokemon Card, a Pokeball in the center with Pokemon logo above and below"
+                     loading="lazy" width="660" height="921">
+                <div class="card__front" style="
+                --seedx: 0.8018943334140327;
+                --seedy: 0.19572004392862752;
+                --cosmosbg: 588px 250px;
+
+                /*--mask: url(/img/160_mask_etched_swsecret_2x.webp);*/
+                /*--foil: url(/img/160_foil_etched_swsecret_2x.webp);*/
+                ">
+                    <img src="/img/dalle.png"
+                         alt="Front design of the Pikachu Pokemon Card, with the stats and info around the edge"
+                         loading="lazy">
                     <div class="card__shine"></div>
                     <div class="card__glare"></div>
                 </div>
@@ -50,8 +87,14 @@
 </body>
 </html>
 <script>
-    const card = document.getElementById("card").firstElementChild
-    card.onmousemove = function (e) {
+    const cards = document.getElementById("card").childNodes
+    cards.forEach((card) => {
+        card.onmousemove = (e) => cardHover(e, card);
+        card.onmouseout = (e) => cardMouseOut(e, card);
+    })
+
+
+    function cardHover(e, card) {
         const rect = card.getBoundingClientRect()
         const x = (e.clientX - rect.left)/card.offsetWidth
         const y = (e.clientY - rect.top)/card.offsetHeight
@@ -81,7 +124,8 @@
             --rotate-y:${rotateY}deg;
             `
     }
-    card.onmouseout = function (e) {
+
+    function cardMouseOut(e, card) {
         card.style.cssText = `
             --pointer-x:50%;
             --pointer-y:50%;
