@@ -90,11 +90,20 @@
     const cards = document.getElementById("card").childNodes
     cards.forEach((card) => {
         card.onmousemove = (e) => cardHover(e, card);
-        card.onmouseout = (e) => cardMouseOut(e, card);
+        card.onmouseleave = (e) => cardMouseOut(e, card);
     })
 
+    let hoverNumber = 0;
 
     function cardHover(e, card) {
+
+        // Play one time every 3 trigger for perf improvement :)
+        if (hoverNumber < 3) {
+            hoverNumber++;
+            return
+        }
+        hoverNumber = 0
+
         const rect = card.getBoundingClientRect()
         const x = (e.clientX - rect.left)/card.offsetWidth
         const y = (e.clientY - rect.top)/card.offsetHeight
