@@ -9,7 +9,7 @@ You can run it with any web service like apache.
 
 ### Docker
 
-Then run it with docker compose :
+Run it with docker compose :
 
 <code>docker compose up -d</code>
 
