@@ -1,6 +1,4 @@
 #card {
-    max-width: min(50vw, 300px);
-
     position: absolute;
     top: 50%;
     left: 50%;
@@ -8,14 +6,13 @@
 }
 
 .card {
-    transform: translate3d(0px, 0px, 0.01px);
-    transform-style: preserve-3d;
+    transform-style: flat;
 }
 
 .card__translater,
 .card__rotator {
     display: grid;
-    perspective: 600px;
+    perspective: var(--distance);
     border: none;
     background: transparent;
     padding: 0;
@@ -23,21 +20,23 @@
 }
 
 .card__translater {
-    width: auto;
+    /*width: auto;*/
     position: relative;
 }
 
 .card__rotator * {
     display: grid;
     grid-area: 1/1;
-    width: 100%;
+    max-height: 70vh;
+    max-width: 70vw;
+    /*width: 100%;*/
 }
 
 .card__rotator img {
-    height: auto;
+    /*height: auto;*/
 
     border-radius: 4.55% / 3.5%;
-    aspect-ratio: 0.718;
+    /*aspect-ratio: 0.718;*/
 }
 
 .card__rotator {
@@ -45,11 +44,10 @@
     transform-style: preserve-3d;
 
     border-radius: 4.55% / 3.5%;
-    aspect-ratio: 0.718;
+    /*aspect-ratio: 0.718;*/
 }
 
 .card__shine {
-    transform: translateZ(1px);
     overflow: hidden;
 
     mix-blend-mode: color-dodge;
@@ -67,67 +65,58 @@
     --r-clr-6: hsl(210, 57%, 39%);
     --r-clr-7: hsl(280, 55%, 31%);
 
-    --glitter: url("/img/glitter.png");
-
     --shift: 1px;
 
     background-image:
-            linear-gradient(-45deg, var(--r-clr-1), var(--r-clr-5)),
-            var(--glitter),
             linear-gradient(-30deg,
+            var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6), var(--r-clr-7),
+            var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6), var(--r-clr-7),
             var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6), var(--r-clr-7),
             var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6), var(--r-clr-7),
             var(--r-clr-1), var(--r-clr-2), var(--r-clr-3), var(--r-clr-4), var(--r-clr-5), var(--r-clr-6), var(--r-clr-7),
             var(--r-clr-1));
 
-    background-size: 200% 200%,
-    50% 50%,
-    400% 400%;
+    background-size: var(--size) var(--size);
 
-    background-blend-mode: luminosity, soft-light;
+    background-blend-mode: luminosity;
 
-    background-position: calc(25% + (50% * var(--pointer-from-left))) calc(25% + (50% * var(--pointer-from-top))),
-    calc(50% - ((var(--shift) * 2) * var(--pointer-from-left)) + var(--shift)) calc(50% - ((var(--shift) * 2) * var(--pointer-from-top)) + var(--shift)),
-    calc(25% + (var(--pointer-x) / 2)) calc(25% + (var(--pointer-y) / 2));
+    background-position: calc(25% + (var(--pointer-x) / 2)) calc(25% + (var(--pointer-y) / 2));
 
-    filter: brightness(calc((var(--pointer-from-center)*0.5) + .75)) contrast(2) saturate(1);
+    filter: brightness(var(--luminosity)) contrast(4) saturate(1.1);
 }
 
-.card__shine:before,
-.card__shine:after {
-    content: "";
-    grid-area: 1/1;
-    opacity: var(--card-opacity);
+.card__shine.mask {
+    -webkit-mask-image: var(--mask);
+    -webkit-mask-position: center;
+    -webkit-mask-size: cover;
+}
+
+.card__shine.mask:before {
+    background-image: none;
 }
 
 .card__shine:before {
+    content: "";
+    grid-area: 1/1;
+
+    filter: invert(var(--invert));
+
     background-image: var(--foil);
     background-size: cover;
     background-position: center;
-    opacity: var(--pointer-from-center);
-}
-
-.card.masked .card__shine,
-.card.masked .card__shine:before,
-.card.masked .card__shine:after {
-    -webkit-mask-image: var(--mask);
-    mask-image: var(--mask);
-    -webkit-mask-size: cover;
-    mask-size: cover;
-    -webkit-mask-position: center;
-    mask-position: center;
+    opacity: calc(var(--pointer-from-center) * .4 + .4);
 }
 
 .card__glare {
     overflow: hidden;
     background-image: radial-gradient(
-        farthest-corner circle at var(--pointer-x) var(--pointer-y),
-        hsla(0, 0%, 100%, 0.8) 10%,
-        hsla(0, 0%, 100%, 0.6) 20%,
-        hsla(0, 0%, 0%, 0) 90%
+            farthest-corner circle at var(--pointer-x) var(--pointer-y),
+            hsla(0, 0%, 100%, 0.8) 10%,
+            hsla(0, 0%, 100%, 0.6) 20%,
+            hsla(0, 0%, 0%, 0) 90%
     );
     border-radius: 4.55% / 3.5%;
     filter: brightness(.9) contrast(2);
-    opacity: calc(var(--pointer-from-center) * .9);
+    opacity: calc(var(--pointer-from-center) * .7);
     mix-blend-mode: hard-light;
 }

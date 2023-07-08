@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Pokemon Card</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
-<div class="showcase" id="card">
-    <div class="card lightning / interactive masked active" data-number="160" data-set="swsh12pt5" data-subtypes="basic"
-         data-supertype="pokémon" data-rarity="rare secret" data-trainer-gallery="false" style="
+<div class="showcase" id="card" style="
+    --luminosity: .85;
+    --distance: 1200px;
+    --size: 200%;
+    --invert: 0%;
+">
+    <div class="card lightning / interactive masked active" data-number="160" data-rarity="rare secret"
+         data-set="swsh12pt5"
+         data-subtypes="basic" data-supertype="pokémon" data-trainer-gallery="false" style="
     --pointer-x: 50%;
     --pointer-y: 50%;
     --pointer-from-center: 0;
     --pointer-from-top: 0.5;
     --pointer-from-left: 0.5;
-    --card-opacity: 0;
+    --card-opacity: 1;
     --rotate-x: 0deg;
     --rotate-y: 0deg;
     --background-x: 50%;
@@ -24,10 +30,7 @@
     --translate-y: 0px;
 	">
         <div class="card__translater">
-            <button class="card__rotator" aria-label="Expand the Pokemon Card; Pikachu." tabindex="0">
-                <img class="card__back" src="/img/tcg-card-back-2x.jpg"
-                     alt="The back of a Pokemon Card, a Pokeball in the center with Pokemon logo above and below"
-                     loading="lazy" width="660" height="921">
+            <button aria-label="Expand the Pokemon Card; Pikachu." class="card__rotator" tabindex="0">
                 <div class="card__front" style="
                 --seedx: 0.8018943334140327;
                 --seedy: 0.19572004392862752;
@@ -36,47 +39,9 @@
                 --mask: url(/img/160_mask_etched_swsecret_2x.webp);
                 --foil: url(/img/160_foil_etched_swsecret_2x.webp);
                 ">
-                    <img src="/img/160_hires.png"
-                         alt="Front design of the Pikachu Pokemon Card, with the stats and info around the edge"
-                         loading="lazy">
-                    <div class="card__shine"></div>
-                    <div class="card__glare"></div>
-                </div>
-            </button>
-        </div>
-    </div>
-    <div class="card lightning / interactive masked active" data-number="160" data-set="swsh12pt5" data-subtypes="basic"
-         data-supertype="pokémon" data-rarity="rare secret" data-trainer-gallery="false" style="
-    --pointer-x: 50%;
-    --pointer-y: 50%;
-    --pointer-from-center: 0;
-    --pointer-from-top: 0.5;
-    --pointer-from-left: 0.5;
-    --card-opacity: 0;
-    --rotate-x: 0deg;
-    --rotate-y: 0deg;
-    --background-x: 50%;
-    --background-y: 50%;
-    --card-scale: 1;
-    --translate-x: 0px;
-    --translate-y: 0px;
-	">
-        <div class="card__translater">
-            <button class="card__rotator" aria-label="Expand the Pokemon Card; Pikachu." tabindex="0">
-                <img class="card__back" src="/img/tcg-card-back-2x.jpg"
-                     alt="The back of a Pokemon Card, a Pokeball in the center with Pokemon logo above and below"
-                     loading="lazy" width="660" height="921">
-                <div class="card__front" style="
-                --seedx: 0.8018943334140327;
-                --seedy: 0.19572004392862752;
-                --cosmosbg: 588px 250px;
-
-                /*--mask: url(/img/160_mask_etched_swsecret_2x.webp);*/
-                /*--foil: url(/img/160_foil_etched_swsecret_2x.webp);*/
-                ">
-                    <img src="/img/dalle.png"
-                         alt="Front design of the Pikachu Pokemon Card, with the stats and info around the edge"
-                         loading="lazy">
+                    <img alt="Front design of the Pikachu Pokemon Card, with the stats and info around the edge"
+                         loading="lazy"
+                         src="/img/160_hires.png">
                     <div class="card__shine"></div>
                     <div class="card__glare"></div>
                 </div>
@@ -84,66 +49,35 @@
         </div>
     </div>
 </div>
+<form action="">
+    <h3>PARAMETRES</h3>
+    <label for="luminosity">Contraste</label><br>
+    <input id="luminosity" max="100" min="50" name="luminosity" onchange="changeStyle('luminosity', this.value/100)"
+           type="range"
+           value="85"><br>
+    <label for="distance">Distance</label><br>
+    <input id="distance" max="2000" min="100" name="distance" onchange="changeStyle('distance', this.value + 'px')"
+           type="range"
+           value="1200"><br>
+    <label for="size">Taille des effets</label><br>
+    <input id="size" max="600" min="110" name="size" onchange="changeStyle('size', this.value + '%')" type="range"
+           value="200"><br>
+    <label for="rotation">Force de rotation</label><br>
+    <input id="rotation" max="150" min="0" name="rotation" onchange="changeRotationLevel(this.value)" type="range"
+           value="70"><br>
+    <label for="invert">Inverser le filtre</label><br>
+    <input id="invert" max="100" min="0" name="invert" onchange="changeStyle('invert', this.value + '%')" type="range"
+           value="0"><br><br>
+    <input id="mask" name="mask" onclick="MASK()" type="button" value="Masquer"><br><br>
+    <button id="reset" onclick="resetForm()" type="button">REINITIALISER</button>
+    <br><br><br>
+    <h3>PRESETS</h3>
+    <input id="preset1" name="preset1" onclick="myPreset1()" type="button" value="Preset 1"><br><br>
+    <input id="preset2" name="preset1" onclick="myPreset2()" type="button" value="Preset 2"><br><br>
+    <input id="preset3" name="preset1" onclick="myPreset3()" type="button" value="Preset 3"><br><br>
+    <input id="preset4" name="preset1" onclick="myPreset4()" type="button" value="DISTORTION A GOGO"><br><br>
+</form>
 </body>
 </html>
-<script>
-    const cards = document.getElementById("card").childNodes
-    cards.forEach((card) => {
-        card.onmousemove = (e) => cardHover(e, card);
-        card.onmouseleave = (e) => cardMouseOut(e, card);
-    })
-
-    let hoverNumber = 0;
-
-    function cardHover(e, card) {
-
-        // Play one time every 3 trigger for perf improvement :)
-        if (hoverNumber < 3) {
-            hoverNumber++;
-            return
-        }
-        hoverNumber = 0
-
-        const rect = card.getBoundingClientRect()
-        const x = (e.clientX - rect.left)/card.offsetWidth
-        const y = (e.clientY - rect.top)/card.offsetHeight
-
-        const xMid = x-0.5;
-        const yMid = y-0.5;
-
-        const pointerX = x*100;
-        const pointerY = y*100;
-
-        const fromCenter = Math.max(
-            Math.abs(xMid)*0.5,
-            Math.abs(yMid),
-        )
-
-        const rotateX = yMid*30;
-        const rotateY = -xMid*30;
-
-        card.style.cssText = `
-            --pointer-x:${pointerX}%;
-            --pointer-y:${pointerY}%;
-            --pointer-from-left:${x};
-            --pointer-from-top:${y};
-            --card-opacity:1;
-            --pointer-from-center: ${fromCenter};
-            --rotate-x:${rotateX}deg;
-            --rotate-y:${rotateY}deg;
-            `
-    }
-
-    function cardMouseOut(e, card) {
-        card.style.cssText = `
-            --pointer-x:50%;
-            --pointer-y:50%;
-            --pointer-from-left:.5;
-            --pointer-from-top:.5;
-            --card-opacity:0;
-            --pointer-from-center: 0;
-            --rotate-x:0deg;
-            --rotate-y:0deg;
-        `
-    }
-</script>
+<script src="settings.js"></script>
+<script src="animation.js"></script>
